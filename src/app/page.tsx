@@ -7,7 +7,7 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { ProjectCard } from "../components/ProjectCard";
 import Typewriter from "typewriter-effect";
-import { Github, Linkedin, Loader2, Mail, Twitter } from "lucide-react";
+import { ChevronRight, Github, Linkedin, Loader2, Mail, Twitter } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Icons from "@/components/Icons";
@@ -38,6 +38,10 @@ export default function Home() {
     message: "",
     email: "",
   });
+
+  const githubUsername = process.env.NEXT_PUBLIC_GITHUB_USERNAME;
+  const xUrl = process.env.NEXT_PUBLIC_X_URL;
+  const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL;
 
   const saveMessage = async () => {
     setLoading(true);
@@ -102,7 +106,7 @@ export default function Home() {
         })
         .catch((err) => console.log(err));
     };
-    getRepos("https://api.github.com/users/sethshivam11");
+    getRepos(`https://api.github.com/users/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`);
   }, []);
 
   return (
@@ -264,6 +268,9 @@ export default function Home() {
                 );
               })}
             </div>
+            <Button variant="secondary" className="w-fit mx-auto" asChild>
+              <Link href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`} target="_blank">See more</Link>
+            </Button>
           </div>
         </div>
         <div
@@ -335,21 +342,21 @@ export default function Home() {
             <div className="flex sm:flex-col max-sm:w-full h-full gap-2 items-center justify-evenly">
               <Link
                 title="GitHub"
-                href="https://github.com/sethshivam11"
+                href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`}
                 className="ring-1 ring-stone-500 hover:bg-foreground hover:text-background hover:ring-foreground rounded-full p-3"
               >
                 <Github />
               </Link>
               <Link
                 title="LinkedIn"
-                href="https://linkedin.com/in/sethshivam11"
+                href={linkedinUrl || "#"}
                 className="ring-1 ring-stone-500 hover:bg-foreground hover:text-background hover:ring-foreground rounded-full p-3"
               >
                 <Linkedin />
               </Link>
               <Link
                 title="X"
-                href="https://x.com/sethshivam11"
+                href={xUrl || "#"}
                 className="ring-1 ring-stone-500 hover:bg-foreground hover:text-background hover:ring-foreground rounded-full p-3"
               >
                 <svg
